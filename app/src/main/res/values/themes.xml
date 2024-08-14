@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="custom_blue">#4BB9D4</color>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TrackIt" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/custom_blue</item>
+        <item name="colorPrimaryDark">@color/custom_blue</item>
+    </style>
+
+    <style name="Theme.TrackIt" parent="Base.Theme.TrackIt" />
+</resources>
