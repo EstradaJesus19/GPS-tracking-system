@@ -121,17 +121,17 @@ class MainActivity : AppCompatActivity(), LocationListener {
         when (requestCode) {
             LOCATION_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permiso de ubicación concedido.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Location permission granted.", Toast.LENGTH_SHORT).show()
                     startLocationUpdates()
                 } else {
-                    Toast.makeText(this, "Permiso de ubicación denegado.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Location permission denied.", Toast.LENGTH_SHORT).show()
                 }
             }
             SMS_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permiso para enviar SMS concedido.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "SMS permission granted.", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "Permiso para enviar SMS denegado.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "SMS permission denied.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
