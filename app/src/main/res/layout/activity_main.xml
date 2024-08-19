@@ -36,7 +36,7 @@
             app:cardElevation="5dp">
 
             <LinearLayout
-                android:layout_width="360dp"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:background="#E9FBFF"
                 android:orientation="vertical"
@@ -47,32 +47,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:text="Location data: "
+                    android:text="Location data"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="24sp"
                     android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp">
-
-                    <TextView
-                        android:id="@+id/longitudeLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-condensed-light"
-                        android:text="Longitude: "
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/longitudeValue"
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-condensed-light"
-                        android:text="0.0"
-                        android:textSize="20sp" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -86,14 +65,43 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed-light"
                         android:text="Latitude: "
-                        android:textSize="20sp" />
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/latitudeValue"
                         android:layout_width="264dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed-light"
-                        android:text="0.0"
+                        android:text="Loading..."
+                        android:textColor="#000000"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:id="@+id/longitudeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text="Longitude: "
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/longitudeValue"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text="Loading..."
+                        android:textColor="#000000"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -109,46 +117,42 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed-light"
                         android:text="Date/time: "
-                        android:textSize="20sp" />
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/dateTimeValue"
                         android:layout_width="264dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed-light"
-                        android:text="0-0-0 00:00:00"
+                        android:text="Loading..."
+                        android:textColor="#000000"
                         android:textSize="20sp" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="16dp" />
-
-                <TextView
-                    android:id="@+id/sendingInfoLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:text="SMS sending information: "
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/phoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed-light"
-                    android:hint="Phone number"
-                    android:inputType="number"
-                    android:textSize="20sp" />
+                    android:layout_height="32dp" />
 
                 <Button
-                    android:id="@+id/sendButton"
+                    android:id="@+id/sendButton_UDP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#4BB9D4"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:text="Send location"
+                    android:text="Send location with UDP"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/sendButton_TCP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#4BB9D4"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="Send location with TCP"
+                    android:textColor="#ffffff"
                     android:textSize="20sp" />
 
             </LinearLayout>
