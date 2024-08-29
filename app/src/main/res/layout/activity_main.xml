@@ -141,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#4BB9D4"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:text="Send location with UDP"
+                    android:text="Start UDP sending"
                     android:textColor="#ffffff"
                     android:textSize="20sp" />
 
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#4BB9D4"
                     android:fontFamily="sans-serif-condensed-light"
-                    android:text="Send location with TCP"
+                    android:text="Start TCP sending"
                     android:textColor="#ffffff"
                     android:textSize="20sp" />
 
