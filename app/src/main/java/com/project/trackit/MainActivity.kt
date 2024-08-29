@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private var isSendingUDP = false
     private var isSendingTCP = false
     private val handler = Handler(Looper.getMainLooper())
-    private val sendInterval: Long = 10000 // 10 segundo
+    private val sendInterval: Long = 10000 // 10 segundos
 
     companion object {
         const val LOCATION_PERMISSION_CODE = 101
