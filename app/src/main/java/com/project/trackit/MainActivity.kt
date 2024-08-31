@@ -35,17 +35,15 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private var isSendingUDP = false
     private var isSendingTCP = false
     private val handler = Handler(Looper.getMainLooper())
-    private val sendInterval: Long = 10000 // 10 segundos
+    private val sendInterval: Long = 1000 // 1 segundos (orlando)
     private var lastGpsUpdateTime: Long = 0
     private var lastNetworkUpdateTime: Long = 0
 
     companion object {
         const val LOCATION_PERMISSION_CODE = 101
-        const val TCP_PORT = 60000
         const val UDP_PORT = 60001
         const val IP_ADDRESS_1 = "trackit1.ddns.net" // Servidor casa Jesús
         const val IP_ADDRESS_2 = "trackit2.ddns.net" // Servidor casa tía mavi
-        const val IP_ADDRESS_3 = "trackit3.ddns.net" // Servidor casa amigo orlando
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
