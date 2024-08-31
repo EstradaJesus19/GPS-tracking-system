@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
 
     companion object {
         const val LOCATION_PERMISSION_CODE = 101
-        const val TCP_PORT = 50000
-        const val UDP_PORT = 50001
+        const val TCP_PORT = 5000
+        const val UDP_PORT = 5001
         const val IP_ADDRESS_1 = "trackit1.ddns.net" // Servidor casa Jesús
         const val IP_ADDRESS_2 = "trackit2.ddns.net" // Servidor casa tía mavi
         const val IP_ADDRESS_3 = "trackit3.ddns.net" // Servidor casa amigo orlando
