@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
     companion object {
         const val LOCATION_PERMISSION_CODE = 101
         const val UDP_PORT = 60001
+        const val TCP_PORT = 60000
         const val IP_ADDRESS_1 = "trackit1.ddns.net" // Servidor casa Jesús
         const val IP_ADDRESS_2 = "trackit2.ddns.net" // Servidor casa tía mavi
     }
@@ -133,7 +134,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 if (isSendingUDP && currentData.isNotEmpty()) {
                     sendLocationData_UDP(IP_ADDRESS_1)
                     sendLocationData_UDP(IP_ADDRESS_2)
-                    sendLocationData_UDP(IP_ADDRESS_3)
+                    //sendLocationData_UDP(IP_ADDRESS_3)
                     //Toast.makeText(this@MainActivity, "UDP: data sent", Toast.LENGTH_SHORT).show()
                 }
                 if (isSendingUDP) {
@@ -160,7 +161,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 if (isSendingTCP && currentData.isNotEmpty()) {
                     sendLocationData_TCP(IP_ADDRESS_1)
                     sendLocationData_TCP(IP_ADDRESS_2)
-                    sendLocationData_TCP(IP_ADDRESS_3)
+                    //sendLocationData_TCP(IP_ADDRESS_3)
                     //Toast.makeText(this@MainActivity, "TCP: data sent", Toast.LENGTH_SHORT).show()
                 }
                 if (isSendingTCP) {
