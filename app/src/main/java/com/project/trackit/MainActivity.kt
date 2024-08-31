@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private var isSendingTCP = false
     private val handler = Handler(Looper.getMainLooper())
     private val sendInterval: Long = 10000 // 10 segundos
+    private var lastGpsUpdateTime: Long = 0
+    private var lastNetworkUpdateTime: Long = 0
 
     companion object {
         const val LOCATION_PERMISSION_CODE = 101
@@ -84,16 +86,43 @@ class MainActivity : AppCompatActivity(), LocationListener {
     override fun onLocationChanged(location: Location) {
         val lat = location.latitude
         val lon = location.longitude
+        val provider = location.provider
+        val locationTime = location.time
+
+        // Verifica qué proveedor envió la actualización y guarda el tiempo
+        when (provider) {
+            LocationManager.GPS_PROVIDER -> lastGpsUpdateTime = locationTime
+            LocationManager.NETWORK_PROVIDER -> lastNetworkUpdateTime = locationTime
+        }
+
+        // Verifica cuál de los dos proveedores tiene la información más reciente
+        if (lastGpsUpdateTime > lastNetworkUpdateTime) {
+            // Usa los datos del GPS
+            if (provider == LocationManager.GPS_PROVIDER) {
+                updateUIWithLocation(lat, lon, locationTime, provider)
+            }
+        } else {
+            // Usa los datos de la red
+            if (provider == LocationManager.NETWORK_PROVIDER) {
+                updateUIWithLocation(lat, lon, locationTime, provider)
+            }
+        }
+
+        Log.d("LocationUpdate", "Provider: $provider, Lat: $lat, Lon: $lon, Time: $locationTime")
+    }
+
+    // Función auxiliar para actualizar la interfaz con los datos de la ubicación
+    private fun updateUIWithLocation(lat: Double, lon: Double, locationTime: Long, provider: String) {
         val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         dateTimeFormat.timeZone = TimeZone.getDefault()
-        val localDateTime = dateTimeFormat.format(Date(location.time))
-        currentData = "Lat: $lat, Lon: $lon, Date/Time: $localDateTime"
+        val localDateTime = dateTimeFormat.format(Date(locationTime))
+        currentData = "Lat: $lat, Lon: $lon, Date/Time: $localDateTime, Provider: $provider"
 
         latitudeText.text = "$lat"
         longitudeText.text = "$lon"
         dateTimeText.text = "$localDateTime"
 
-        Log.d("LocationUpdate", "Provider: ${location.provider}, Data: $currentData")
+        Log.d("LocationUpdate", "Using data from provider: $provider, Data: $currentData")
     }
 
     private fun startSendingUDP() {
@@ -214,10 +243,10 @@ class MainActivity : AppCompatActivity(), LocationListener {
     }
 
     private fun startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 0f, this)
-        } else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 0f, this)
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 0f, this)
         }
     }
 
