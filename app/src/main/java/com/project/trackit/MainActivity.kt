@@ -27,13 +27,13 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private lateinit var locationManager: LocationManager
     private lateinit var longitudeText: TextView
     private lateinit var latitudeText: TextView
-    private lateinit var dateTimeText: TextView
+    private lateinit var dateText: TextView
+    private lateinit var timeText: TextView
     private lateinit var sendButton_UDP: Button
     private lateinit var sendButton_TCP: Button
 
     private var currentData: String = ""
     private var isSendingUDP = false
-    private var isSendingTCP = false
     private val handler = Handler(Looper.getMainLooper())
     private val sendInterval: Long = 1000 // 1 segundos (orlando)
     private var lastGpsUpdateTime: Long = 0
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         const val TCP_PORT = 60000
         const val IP_ADDRESS_1 = "trackit1.ddns.net" // Servidor casa Jesús
         const val IP_ADDRESS_2 = "trackit2.ddns.net" // Servidor casa tía mavi
+        //const val IP_ADDRESS_3 = "trackit3.ddns.net" // Servidor casa Edwin
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,9 +54,9 @@ class MainActivity : AppCompatActivity(), LocationListener {
 
         latitudeText = findViewById(R.id.latitudeValue)
         longitudeText = findViewById(R.id.longitudeValue)
-        dateTimeText = findViewById(R.id.dateTimeValue)
+        dateText = findViewById(R.id.dateValue)
+        timeText = findViewById(R.id.timeValue)
         sendButton_UDP = findViewById(R.id.sendButton_UDP)
-        sendButton_TCP = findViewById(R.id.sendButton_TCP)
 
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
@@ -70,14 +71,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 startSendingUDP()
             } else {
                 stopSendingUDP()
-            }
-        }
-
-        sendButton_TCP.setOnClickListener {
-            if (!isSendingTCP) {
-                startSendingTCP()
-            } else {
-                stopSendingTCP()
             }
         }
     }
@@ -112,22 +105,25 @@ class MainActivity : AppCompatActivity(), LocationListener {
 
     // Función auxiliar para actualizar la interfaz con los datos de la ubicación
     private fun updateUIWithLocation(lat: Double, lon: Double, locationTime: Long, provider: String) {
-        val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        dateTimeFormat.timeZone = TimeZone.getDefault()
-        val localDateTime = dateTimeFormat.format(Date(locationTime))
-        currentData = "Lat: $lat, Lon: $lon, Date/Time: $localDateTime, Provider: $provider"
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val TimeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getDefault()
+        TimeFormat.timeZone = TimeZone.getDefault()
+        val localDate = dateFormat.format(Date(locationTime))
+        val localTime = TimeFormat.format(Date(locationTime))
+        currentData = "Lat: $lat, Lon: $lon, Date: $localDate, Time: $localTime, Provider: $provider"
 
         latitudeText.text = "$lat"
         longitudeText.text = "$lon"
-        dateTimeText.text = "$localDateTime"
+        dateText.text = "$localDate"
+        timeText.text = "$localTime"
 
         Log.d("LocationUpdate", "Using data from provider: $provider, Data: $currentData")
     }
 
     private fun startSendingUDP() {
         isSendingUDP = true
-        sendButton_UDP.text = "Stop UDP sending"
-        sendButton_TCP.isEnabled = false
+        sendButton_UDP.text = "Stop sending"
 
         handler.post(object : Runnable {
             override fun run() {
@@ -146,35 +142,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
 
     private fun stopSendingUDP() {
         isSendingUDP = false
-        sendButton_UDP.text = "Start UDP sending"
-        sendButton_TCP.isEnabled = true
-        handler.removeCallbacksAndMessages(null)
-    }
-
-    private fun startSendingTCP() {
-        isSendingTCP = true
-        sendButton_TCP.text = "Stop TCP sending"
-        sendButton_UDP.isEnabled = false
-
-        handler.post(object : Runnable {
-            override fun run() {
-                if (isSendingTCP && currentData.isNotEmpty()) {
-                    sendLocationData_TCP(IP_ADDRESS_1)
-                    sendLocationData_TCP(IP_ADDRESS_2)
-                    //sendLocationData_TCP(IP_ADDRESS_3)
-                    //Toast.makeText(this@MainActivity, "TCP: data sent", Toast.LENGTH_SHORT).show()
-                }
-                if (isSendingTCP) {
-                    handler.postDelayed(this, sendInterval)
-                }
-            }
-        })
-    }
-
-    private fun stopSendingTCP() {
-        isSendingTCP = false
-        sendButton_TCP.text = "Start TCP sending"
-        sendButton_UDP.isEnabled = true
+        sendButton_UDP.text = "Start sending"
         handler.removeCallbacksAndMessages(null)
     }
 
@@ -190,26 +158,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 Log.d("UDP", "Data sent to $ipAddress")
             } catch (e: Exception) {
                 Log.e("UDP", "Error sending data to $ipAddress: ${e.message}")
-                runOnUiThread {
-                    //Toast.makeText(this, "Error sending data: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
-        }.start()
-    }
-
-    private fun sendLocationData_TCP(ipAddress: String) {
-        Thread {
-            try {
-                val socket_tcp = Socket(ipAddress, TCP_PORT)
-                val outputStream = socket_tcp.getOutputStream()
-                val message_tcp = currentData.toByteArray()
-                outputStream.write(message_tcp)
-                outputStream.flush()
-                outputStream.close()
-                socket_tcp.close()
-                Log.d("TCP", "Data sent to $ipAddress")
-            } catch (e: Exception) {
-                Log.e("TCP", "Error sending data to $ipAddress: ${e.message}")
                 runOnUiThread {
                     //Toast.makeText(this, "Error sending data: ${e.message}", Toast.LENGTH_LONG).show()
                 }
