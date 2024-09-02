@@ -30,12 +30,11 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private lateinit var dateText: TextView
     private lateinit var timeText: TextView
     private lateinit var sendButton_UDP: Button
-    private lateinit var sendButton_TCP: Button
 
     private var currentData: String = ""
     private var isSendingUDP = false
     private val handler = Handler(Looper.getMainLooper())
-    private val sendInterval: Long = 1000 // 1 segundos (orlando)
+    private val sendInterval: Long = 10000 // 1 segundos (orlando)
     private var lastGpsUpdateTime: Long = 0
     private var lastNetworkUpdateTime: Long = 0
 
