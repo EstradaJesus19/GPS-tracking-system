@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
                 if (isSendingUDP && currentData.isNotEmpty()) {
                     sendLocationData_UDP(IP_ADDRESS_1)
                     sendLocationData_UDP(IP_ADDRESS_2)
-                    //sendLocationData_UDP(IP_ADDRESS_3)
+                    sendLocationData_UDP(IP_ADDRESS_3)
                     //Toast.makeText(this@MainActivity, "UDP: data sent", Toast.LENGTH_SHORT).show()
                 }
                 if (isSendingUDP) {
