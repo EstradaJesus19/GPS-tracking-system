@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         const val TCP_PORT = 60000
         const val IP_ADDRESS_1 = "trackit1.ddns.net" // Servidor casa Jesús
         const val IP_ADDRESS_2 = "trackit2.ddns.net" // Servidor casa tía mavi
-        //const val IP_ADDRESS_3 = "trackit3.ddns.net" // Servidor casa Edwin
+        const val IP_ADDRESS_3 = "trackit3.ddns.net" // Servidor casa Edwin
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
