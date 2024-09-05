@@ -34,17 +34,16 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private var currentData: String = ""
     private var isSendingUDP = false
     private val handler = Handler(Looper.getMainLooper())
-    private val sendInterval: Long = 10000 // 1 segundos (orlando)
+    private val sendInterval: Long = 10000 // 10 seconds
     private var lastGpsUpdateTime: Long = 0
     private var lastNetworkUpdateTime: Long = 0
 
     companion object {
         const val LOCATION_PERMISSION_CODE = 101
         const val UDP_PORT = 60001
-        const val TCP_PORT = 60000
-        const val IP_ADDRESS_1 = "trackit1.ddns.net" // Servidor casa Jesús
-        const val IP_ADDRESS_2 = "trackit2.ddns.net" // Servidor casa tía mavi
-        const val IP_ADDRESS_3 = "trackit3.ddns.net" // Servidor casa Edwin
+        const val IP_ADDRESS_1 = "trackit1.ddns.net" // Server Jesús
+        const val IP_ADDRESS_2 = "trackit2.ddns.net" // Server María Victoria
+        const val IP_ADDRESS_3 = "trackit3.ddns.net" // Server Orlando
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,20 +79,16 @@ class MainActivity : AppCompatActivity(), LocationListener {
         val provider = location.provider
         val locationTime = location.time
 
-        // Verifica qué proveedor envió la actualización y guarda el tiempo
         when (provider) {
             LocationManager.GPS_PROVIDER -> lastGpsUpdateTime = locationTime
             LocationManager.NETWORK_PROVIDER -> lastNetworkUpdateTime = locationTime
         }
 
-        // Verifica cuál de los dos proveedores tiene la información más reciente
         if (lastGpsUpdateTime > lastNetworkUpdateTime) {
-            // Usa los datos del GPS
             if (provider == LocationManager.GPS_PROVIDER) {
                 updateUIWithLocation(lat, lon, locationTime, provider)
             }
         } else {
-            // Usa los datos de la red
             if (provider == LocationManager.NETWORK_PROVIDER) {
                 updateUIWithLocation(lat, lon, locationTime, provider)
             }
@@ -102,7 +97,6 @@ class MainActivity : AppCompatActivity(), LocationListener {
         Log.d("LocationUpdate", "Provider: $provider, Lat: $lat, Lon: $lon, Time: $locationTime")
     }
 
-    // Función auxiliar para actualizar la interfaz con los datos de la ubicación
     private fun updateUIWithLocation(lat: Double, lon: Double, locationTime: Long, provider: String) {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val TimeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
@@ -158,7 +152,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
             } catch (e: Exception) {
                 Log.e("UDP", "Error sending data to $ipAddress: ${e.message}")
                 runOnUiThread {
-                    //Toast.makeText(this, "Error sending data: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Error sending data: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }.start()
