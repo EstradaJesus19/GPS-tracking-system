@@ -117,6 +117,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private fun startSendingUDP() {
         isSendingUDP = true
         sendButton_UDP.text = "Stop sending"
+        sendButton_UDP.setCompoundDrawablesWithIntrinsicBounds(R.drawable.stop_icon, 0, 0, 0)
 
         handler.post(object : Runnable {
             override fun run() {
@@ -136,6 +137,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private fun stopSendingUDP() {
         isSendingUDP = false
         sendButton_UDP.text = "Start sending"
+        sendButton_UDP.setCompoundDrawablesWithIntrinsicBounds(R.drawable.send_icon, 0, 0, 0)
         handler.removeCallbacksAndMessages(null)
     }
 
