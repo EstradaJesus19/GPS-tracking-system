@@ -1,10 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="custom_purple">#530aa8</color>
-    <!-- Base application theme. -->
     <style name="Base.Theme.TrackIt" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/custom_purple</item>
         <item name="colorPrimaryDark">@color/custom_purple</item>
     </style>
-
     <style name="Theme.TrackIt" parent="Base.Theme.TrackIt" />
 </resources>

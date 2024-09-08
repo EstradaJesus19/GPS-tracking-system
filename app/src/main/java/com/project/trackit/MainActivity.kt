@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         const val IP_ADDRESS_3 = "trackit3.ddns.net" // Server Orlando
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
