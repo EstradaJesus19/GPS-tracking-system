@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
         const val UDP_PORT = 60001
         const val IP_ADDRESS_1 = "trackit1.ddns.net" // Server Jesús
         const val IP_ADDRESS_2 = "trackit2.ddns.net" // Server María Victoria
-        const val IP_ADDRESS_3 = "trackit3.ddns.net" // Server Orlando
+        const val IP_ADDRESS_3 = "trackit03.ddns.net" // Server Orlando
     }
 
 
