@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), LocationListener {
     companion object {
         const val LOCATION_PERMISSION_CODE = 101
         const val UDP_PORT = 60001
-        const val IP_ADDRESS_1 = "trackit1.ddns.net" // Server Jesús
+        const val IP_ADDRESS_1 = "trackit01.ddns.net" // Server Jesús
         const val IP_ADDRESS_2 = "trackit2.ddns.net" // Server María Victoria
         const val IP_ADDRESS_3 = "trackit03.ddns.net" // Server Orlando
     }
@@ -188,8 +188,8 @@ class MainActivity : AppCompatActivity(), LocationListener {
     private fun startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
             && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 0f, this)
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 0f, this)
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000L, 0f, this)
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000L, 0f, this)
         }
     }
 
